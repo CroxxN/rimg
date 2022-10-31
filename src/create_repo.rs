@@ -1,3 +1,4 @@
+use std::fs;
 use std::path::PathBuf;
 use walkdir::{DirEntry, Error, WalkDir};
 pub struct CreateRimg {
@@ -20,6 +21,11 @@ impl CreateRimg {
             }
         }
         return true;
+    }
+    pub fn create_dir() {
+        if let Err(err) = fs::create_dir(".rimg") {
+            println!("Failed to create .rimg directory due to {}", err)
+        }
     }
     pub fn walk_dir(&self) -> Result<(), Error> {
         let dir = WalkDir::new("./").into_iter();

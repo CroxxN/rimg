@@ -1,7 +1,6 @@
 mod create_repo;
 use clap::{Parser, Subcommand};
 use create_repo::CreateRimg;
-use std::ffi::OsString;
 
 #[derive(Parser)]
 pub struct Rimg {
@@ -16,7 +15,7 @@ enum Commands {
 
     /// add files to the repository
     /// Hint: use "*" for wildcard
-    Add { path: OsString },
+    Add { path: Vec<String> },
 
     /// commit changes to the repository
     Commit {
@@ -26,15 +25,23 @@ enum Commands {
 }
 
 impl Rimg {
+    fn init() {
+        CreateRimg::create_dir();
+    }
     pub fn run(&self) {
         match &self.command {
             Commands::Init { exclude_dir } => {
+                Self::init();
                 if let Some(options) = exclude_dir {
                     let option = CreateRimg::new(options.to_owned());
                     if let Err(err) = option.walk_dir() {
                         println!("{:?}", err)
                     }
                 }
+            }
+            Commands::Add { path } => {
+                println!("{:?}", path);
+                todo!();
             }
             _ => {
                 println!("Idk")
