@@ -1,6 +1,11 @@
+mod add;
 mod create_repo;
+use std::path;
+
 use clap::{Parser, Subcommand};
 use create_repo::CreateRimg;
+
+use add::Add;
 
 #[derive(Parser)]
 pub struct Rimg {
@@ -15,7 +20,7 @@ enum Commands {
 
     /// add files to the repository
     /// Hint: use "*" for wildcard
-    Add { path: Vec<String> },
+    Add { dir: Vec<String> },
 
     /// commit changes to the repository
     Commit {
@@ -39,9 +44,13 @@ impl Rimg {
                     }
                 }
             }
-            Commands::Add { path } => {
-                println!("{:?}", path);
-                todo!();
+            Commands::Add { dir } => {
+                if !path::Path::new(".rimg").exists() {
+                    println!("Rimg repository not found in current directoyr");
+                    return;
+                }
+
+                Add::new(dir);
             }
             _ => {
                 println!("Idk")

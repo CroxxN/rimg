@@ -26,11 +26,14 @@ impl CreateRimg {
         if let Err(err) = fs::create_dir(".rimg") {
             println!("Failed to create .rimg directory due to {}", err)
         }
+        fs::File::create(".rimg/.rimgtrack").expect("Failed to track file");
     }
     pub fn walk_dir(&self) -> Result<(), Error> {
         let dir = WalkDir::new("./").into_iter();
 
         if let Some(excluded) = &self.exclude_dir {
+            fs::File::create(".rimg/.rimgignore").expect("Unable to create .rimgignore file");
+            fs::write(".rimg/.rimgignore", excluded.join("\n")).expect("Failed Operation");
             for entry in dir.filter_entry(|f| Self::excluded_path(f, &excluded)) {
                 println!("{}", entry?.path().display());
             }
