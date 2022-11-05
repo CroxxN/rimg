@@ -23,7 +23,7 @@ enum Commands {
     Add { dir: Vec<String> },
 
     /// commit changes to the repository
-    Commit {
+    Save {
         #[arg(value_name = "message", long = "message", short = 'm')]
         message: String,
     },
@@ -61,6 +61,5 @@ impl Rimg {
 
 fn main() {
     let commands = Rimg::parse();
-
     commands.run();
 }

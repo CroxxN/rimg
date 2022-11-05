@@ -23,7 +23,7 @@ impl CreateRimg {
         return true;
     }
     pub fn create_dir() {
-        if let Err(err) = fs::create_dir(".rimg") {
+        if let Err(err) = fs::create_dir_all(".rimg/refs") {
             println!("Failed to create .rimg directory due to {}", err)
         }
         fs::File::create(".rimg/.rimgtrack").expect("Failed to track file");
