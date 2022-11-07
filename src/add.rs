@@ -1,3 +1,4 @@
+use crate::archive::flate;
 use std::io::Write;
 use std::{fmt::Display, fs};
 
@@ -14,6 +15,7 @@ impl Display for Add<'_> {
 
 impl<'a> Add<'a> {
     pub fn new(path: &'a Vec<String>) {
+        flate();
         let mut file = fs::OpenOptions::new()
             .write(true)
             .append(true)
@@ -27,6 +29,7 @@ impl<'a> Add<'a> {
             eprintln!("{}", e);
         }
     }
+
     // pub fn list_dir_names(&self) {
     //     println!("{}", self);
     // }
