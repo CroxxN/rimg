@@ -1,4 +1,5 @@
 mod add;
+mod archive;
 mod create_repo;
 use std::path;
 
@@ -46,7 +47,7 @@ impl Rimg {
             }
             Commands::Add { dir } => {
                 if !path::Path::new(".rimg").exists() {
-                    println!("Rimg repository not found in current directoyr");
+                    println!("Rimg repository not found in current directory");
                     return;
                 }
 
