@@ -1,12 +1,10 @@
 mod add;
 mod archive;
 mod create_repo;
-use std::path;
-
+use add::Add;
 use clap::{Parser, Subcommand};
 use create_repo::CreateRimg;
-
-use add::Add;
+use std::path;
 
 #[derive(Parser)]
 pub struct Rimg {
