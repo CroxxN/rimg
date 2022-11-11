@@ -1,4 +1,3 @@
-use crate::archive::Archv;
 use std::io::Write;
 use std::{fmt::Display, fs};
 
@@ -14,8 +13,7 @@ impl Display for Add<'_> {
 }
 
 impl<'a> Add<'a> {
-    pub fn new(path: &'a Vec<String>) {
-        Archv::flate();
+    pub fn new(path: &'a [String]) {
         let mut file = fs::OpenOptions::new()
             .write(true)
             .append(true)

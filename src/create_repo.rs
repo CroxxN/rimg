@@ -20,7 +20,7 @@ impl CreateRimg {
                 return false;
             }
         }
-        return true;
+        true
     }
     pub fn create_dir() {
         if let Err(err) = fs::create_dir_all(".rimg/refs") {
@@ -34,7 +34,7 @@ impl CreateRimg {
         if let Some(excluded) = &self.exclude_dir {
             fs::File::create(".rimg/.rimgignore").expect("Unable to create .rimgignore file");
             fs::write(".rimg/.rimgignore", excluded.join("\n")).expect("Failed Operation");
-            for entry in dir.filter_entry(|f| Self::excluded_path(f, &excluded)) {
+            for entry in dir.filter_entry(|f| Self::excluded_path(f, excluded)) {
                 println!("{}", entry?.path().display());
             }
         }

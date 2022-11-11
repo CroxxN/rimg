@@ -1,10 +1,16 @@
+// Helper Modules
 mod add;
 mod archive;
 mod create_repo;
+mod save;
+
+// Helper crates
 use add::Add;
 use clap::{Parser, Subcommand};
 use create_repo::CreateRimg;
 use std::path;
+
+use crate::save::save;
 
 #[derive(Parser)]
 pub struct Rimg {
@@ -51,8 +57,9 @@ impl Rimg {
 
                 Add::new(dir);
             }
-            _ => {
-                println!("Idk")
+            Commands::Save { message } => {
+                println!("{message}");
+                save()
             }
         }
     }
