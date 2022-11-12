@@ -35,7 +35,11 @@ impl CreateRimg {
             fs::File::create(".rimg/.rimgignore").expect("Unable to create .rimgignore file");
             fs::write(".rimg/.rimgignore", excluded.join("\n")).expect("Failed Operation");
             for entry in dir.filter_entry(|f| Self::excluded_path(f, excluded)) {
-                println!("{}", entry?.path().display());
+                fs::write(
+                    "./rimg/.rimgtract",
+                    entry?.path().to_str().unwrap().as_bytes(),
+                )
+                .unwrap();
             }
         }
         Ok(())
